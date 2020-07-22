@@ -72,7 +72,7 @@ def fiblist():
         else:
             a, b = 0, 1
             for i in range(n):
-                print(i+1,'\t-\t',a)
+                print(i+1,'\t-\t', f'{a:,}')
                 a, b = b, a+b
     start()
 
@@ -99,7 +99,7 @@ def fibfind():
                 if i < n:
                     f = a
                     a, b = b, a+b
-            print(n, '\t-\t', f)
+            print(n, '\t-\t', f'{f:,}')
     start()
 
 def start():
@@ -114,7 +114,9 @@ def start():
     elif choice == '4':
         fibfind()
     elif choice == '0':
-        return
+        print('Type "start()" to run the module again.')
     else:
         print('Invalid choice.')
         start()
+
+start()
