@@ -6,6 +6,7 @@ con = 0
 ing = 0
 wis = 0
 cha = 0
+choice = 0
 
 def diceroll6():
 
@@ -30,7 +31,6 @@ def statroll():
         stats = []
         modtab = []
         t = 0
-
 
         def roll():
                 dice = []
@@ -69,6 +69,56 @@ def statroll():
                         elif stats[m] == 1:
                                 modtab.append(-5)
 
+        def getval():
+
+                def getsrn():
+                        srn = int(input('What did you roll for STRENGTH? '))
+                        if srn in range(3,19):
+                                stats.append(srn)
+                        else:
+                                print("Impossible roll. Try again.")
+                                getsrn()
+                def getdex():
+                        dex = int(input('What did you roll for DEXTERITY? '))
+                        if dex in range(3,19):
+                                stats.append(dex)
+                        else:
+                                print("Impossible roll. Try again.")
+                                getdex()
+                def getcon():
+                        con = int(input('What did you roll for CONSTITUTION? '))
+                        if con in range(3,19):
+                                stats.append(con)
+                        else:
+                                print("Impossible roll. Try again.")
+                                getcon()
+                def geting():
+                        ing = int(input('What did you roll for INTELLIGENCE? '))
+                        if ing in range(3,19):
+                                stats.append(ing)
+                        else:
+                                print("Impossible roll. Try again.")
+                                geting()
+                def getwis():
+                        wis = int(input('What did you roll for WISDOM? '))
+                        if wis in range(3,19):
+                                stats.append(wis)
+                        else:
+                                print("Impossible roll. Try again.")
+                                getwis()
+                def getcha():
+                        cha = int(input('What did you roll for CHARISMA? '))
+                        if cha in range(3,19):
+                                stats.append(cha)
+                        else:
+                                print("Impossible roll. Try again.")
+                                getcha()
+                getsrn()
+                getdex()
+                getcon()
+                geting()
+                getwis()
+                getcha()
         
         def randroll():
 
@@ -88,39 +138,24 @@ def statroll():
                 print('------\n')
                 
                 def setval():
-
                         print('Accept these values (Y) or roll again? (N)')
-                        choice = input()
-                        if choice in ('y','Y','ye','yes'):
+                        yn = input()
+                        if yn in ('y','Y','ye','yes'):
                                 return
-                        elif choice in ('n','N','no','nope'):
+                        elif yn in ('n','N','no','nope'):
                                 stats.clear()
                                 modtab.clear()
                                 randroll()
                         else:
                                 print('Please type either Y or N.')
                                 setval()
-
+                        
                 setval()
 
         def manuroll():
 
-                stats = []
-                modtab = []
-
-                srn = input('What did you roll for STRENGTH?')
-                stats.append(srn)
-                dex = input('What did you roll for DEXTERITY?')
-                stats.append(dex)
-                con = input('What did you roll for CONSTITUTION?')
-                stats.append(con)
-                ing = input('What did you roll for INTELLIGENCE?')
-                stats.append(ing)
-                wis = input('What did you roll for WISDOM?')
-                stats.append(wis)
-                cha = input('What did you roll for CHARISMA?')
-                stats.append(cha)
                 
+                getval()
                 print(stats)
 
                 modcalc()
@@ -139,11 +174,13 @@ def statroll():
                 def setval():
 
                         print('Accept these values (Y) or roll again? (N)')
-                        choice = input()
-                        if choice in ('y','Y','ye','yes'):
+                        yn = input()
+                        if yn in ('y','Y','ye','yes'):
                                 return
-                        elif choice in ('n','N','no','nope'):
-                                randroll()
+                        elif yn in ('n','N','no','nope'):
+                                stats.clear()
+                                modtab.clear()
+                                manuroll()
                         else:
                                 print('Please type either Y or N.')
                                 setval()
