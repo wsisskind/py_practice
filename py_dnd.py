@@ -122,6 +122,9 @@ def statroll():
         
         def randroll():
 
+                stats.clear()
+                modtab.clear()
+
                 roll()
                 print(stats)
                 modcalc()
@@ -141,7 +144,7 @@ def statroll():
                         print('Accept these values (Y) or roll again? (N)')
                         yn = input()
                         if yn in ('y','Y','ye','yes'):
-                                return
+                                start()
                         elif yn in ('n','N','no','nope'):
                                 stats.clear()
                                 modtab.clear()
@@ -153,7 +156,8 @@ def statroll():
                 setval()
 
         def manuroll():
-
+                stats.clear()
+                modtab.clear()
                 
                 getval()
                 print(stats)
@@ -176,7 +180,7 @@ def statroll():
                         print('Accept these values (Y) or roll again? (N)')
                         yn = input()
                         if yn in ('y','Y','ye','yes'):
-                                return
+                                start()
                         elif yn in ('n','N','no','nope'):
                                 stats.clear()
                                 modtab.clear()
@@ -187,22 +191,30 @@ def statroll():
 
                 setval()
                         
+        def start():
+                print('\n-----------------')
+                print('STAT ROLLER v.0.1')
+                print('-----------------\n')
+                
+                print('Would you like to:')
+                print('1) Roll random values?')
+                print('2) Manually input values?')
+                print('3) See last saved values?')
+                print('4) Exit the program?')
+                choice = int(input())
 
-        print('\n-----------------')
-        print('STAT ROLLER v.0.1')
-        print('-----------------\n')
+                if choice == 1:
+                        randroll()
+                if choice == 2:
+                        manuroll()
+                if choice == 3:
+                        print(stats)
+                        print(modtab)
+                        start()
+                if choice == 4:
+                        return
 
-        print('Would you like to:')
-        print('1) Roll random values?')
-        print('2) Manually input values?')
-        print('3) Exit the program?')
-        choice = input()
-        choice = int(choice)
+        start()
 
-        if choice == 1:
-                randroll()
-        if choice == 2:
-                manuroll()
-        if choice == 3:
-                return
+statroll()
 
