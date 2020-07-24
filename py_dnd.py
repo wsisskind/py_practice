@@ -1,3 +1,12 @@
+stats = []
+modtab = []
+srn = 0
+dex = 0
+con = 0
+ing = 0
+wis = 0
+cha = 0
+
 def diceroll6():
 
 	import random
@@ -21,12 +30,7 @@ def statroll():
         stats = []
         modtab = []
         t = 0
-        srn = 0
-        dex = 0
-        con = 0
-        ing = 0
-        wis = 0
-        cha = 0
+
 
         def roll():
                 dice = []
@@ -42,7 +46,7 @@ def statroll():
                         t = 0
                         d = 0
 
-        def modcalc(stats):
+        def modcalc():
                 for m in range(len(stats)):
                         if stats[m] in range(18, 20):
                                 modtab.append(4)
@@ -69,7 +73,9 @@ def statroll():
         def randroll():
 
                 roll()
-                modcalc(stats)
+                print(stats)
+                modcalc()
+                print(modtab)
 
                 print('STATS:')
                 print('------')
@@ -88,6 +94,8 @@ def statroll():
                         if choice in ('y','Y','ye','yes'):
                                 return
                         elif choice in ('n','N','no','nope'):
+                                stats.clear()
+                                modtab.clear()
                                 randroll()
                         else:
                                 print('Please type either Y or N.')
@@ -115,7 +123,7 @@ def statroll():
                 
                 print(stats)
 
-                modcalc(stats)
+                modcalc()
                 print(modtab)
 
                 print('STATS:')
