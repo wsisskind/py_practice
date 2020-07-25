@@ -2,16 +2,75 @@ def dnd():
 
     import random
     import math
+    import os
 
+    savedata = {}
     stats = []
     modtab = []
-    srn = 0
-    dex = 0
-    con = 0
-    ing = 0
-    wis = 0
-    cha = 0
+
+    if os.path.isfile('./dnd.dnd'):
+        try:
+
+            with open('dnd.dnd', 'r') as f:
+                for line in f:
+                    name, value = line.split('=')
+                    savedata[name] = int(value)
+
+        except ValueError:
+            print('Could not load saved data!')
+
+        try:
+
+            stats.append(savedata['srn'])
+            stats.append(savedata['dex'])
+            stats.append(savedata['con'])
+            stats.append(savedata['ing'])
+            stats.append(savedata['wis'])
+            stats.append(savedata['cha'])
+
+            modtab.append(savedata['srnmod'])
+            modtab.append(savedata['dexmod'])
+            modtab.append(savedata['conmod'])
+            modtab.append(savedata['ingmod'])
+            modtab.append(savedata['wismod'])
+            modtab.append(savedata['chamod'])
+
+        except KeyError:
+            print('Could not find data to load.')
+    else:
+        print('dnd.dnd not found.')
+
     choice = 0
+
+    def savestats():
+        if len(stats) != 0:
+            with open('dnd.dnd', 'w') as f:
+                f.write(str('srn= ' + str(stats[0])))
+                f.write(str('\n'))
+                f.write(str('dex= ' + str(stats[1])))
+                f.write(str('\n'))
+                f.write(str('con= ' + str(stats[2])))
+                f.write(str('\n'))
+                f.write(str('ing= ' + str(stats[3])))
+                f.write(str('\n'))
+                f.write(str('wis= ' + str(stats[4])))
+                f.write(str('\n'))
+                f.write(str('cha= ' + str(stats[5])))
+                f.write(str('\n'))
+                f.write(str('srnmod= ' + str(modtab[0])))
+                f.write(str('\n'))
+                f.write(str('dexmod= ' + str(modtab[1])))
+                f.write(str('\n'))
+                f.write(str('conmod= ' + str(modtab[2])))
+                f.write(str('\n'))
+                f.write(str('ingmod= ' + str(modtab[3])))
+                f.write(str('\n'))
+                f.write(str('wismod= ' + str(modtab[4])))
+                f.write(str('\n'))
+                f.write(str('chamod= ' + str(modtab[5])))
+                f.close()
+        else:
+            print('No data to save! Exiting...')
 
     def rolldice():
 
@@ -22,17 +81,17 @@ def dnd():
             for i in range(1, n+1):
                 d = random.randrange(1,7)
                 dice.append(d)
-                print('Dice', i, "-", d)
+                print('\nDice', i, "-", d)
             total = sum(dice)
-            print(total)
+            print('Your ' + n + ' dice total: ' total)
         else:
             print("Too many dice. Try up to 10.")
             rolldice()
 
     def statroll():
 
-        stats = []
-        modtab = []
+        #stats = []
+        #modtab = []
         t = 0
 
         def roll():
@@ -129,9 +188,7 @@ def dnd():
             modtab.clear()
 
             roll()
-            print(stats)
             modcalc()
-            print(modtab)
 
             print('STATS:')
             print('------')
@@ -144,7 +201,7 @@ def dnd():
             print('------\n')
 
             def setval():
-                yn = input('Accept these values (Y) or roll new ones (N)?')
+                yn = input('Accept these values (Y) or roll new ones (N)? ')
                 if yn in ('y','Y','ye','yes'):
                     start()
                 elif yn in ('n','N','no'):
@@ -164,7 +221,7 @@ def dnd():
             getval()
             modcalc()
 
-            print('STATS:')
+            print('\nSTATS:')
             print('------')
             print('STR: ' + str(stats[0]) + '\tMOD: ' + str(modtab[0]))
             print('DEX: ' + str(stats[1]) + '\tMOD: ' + str(modtab[1]))
@@ -175,7 +232,7 @@ def dnd():
             print('------\n')
 
             def setval():
-                yn = input('Accept these values (Y) or roll new ones (N)?')
+                yn = input('Accept these values (Y) or roll new ones (N)? ')
                 if yn in ('y','Y','ye','yes'):
                     start()
                 elif yn in ('n','N','no'):
@@ -196,37 +253,53 @@ def dnd():
 
         def start():
             print('\nCHOICES')
+            print('-------')
             print('1) Roll random values')
             print('2) Manually input values')
             print('3) See last saved values')
             print('4) Roll some six-sided dice')
-            print('5) Exit the program')
+            print('5) Exit the program\n')
 
-            choice = int(input('What would you like to do? '))
+            try:
+                choice = int(input('What would you like to do? '))
+            except ValueError:
+                print('Invalid input.')
+                start()
 
             if choice == 1:
+                print(' \n ')
                 randroll()
-            if choice == 2:
+            elif choice == 2:
+                (print(' \n '))
                 manuroll()
-            if choice == 3:
-                if len(stats) != 0:
-                    print('STATS:')
-                    print('------')
-                    print('STR: ' + str(stats[0]) + '\tMOD: ' + str(modtab[0]))
-                    print('DEX: ' + str(stats[1]) + '\tMOD: ' + str(modtab[1]))
-                    print('CON: ' + str(stats[2]) + '\tMOD: ' + str(modtab[2]))
-                    print('INT: ' + str(stats[3]) + '\tMOD: ' + str(modtab[3]))
-                    print('WIS: ' + str(stats[4]) + '\tMOD: ' + str(modtab[4]))
-                    print('CHA: ' + str(stats[5]) + '\tMOD: ' + str(modtab[5]))
-                    print('------\n')
+            elif choice == 3:
+                print(' \n ')
+                if len(modtab) != 0:
+                    if len(stats) != 0:
+                        print('STATS:')
+                        print('------')
+                        print('STR: ' + str(stats[0]) + '\tMOD: ' + str(modtab[0]))
+                        print('DEX: ' + str(stats[1]) + '\tMOD: ' + str(modtab[1]))
+                        print('CON: ' + str(stats[2]) + '\tMOD: ' + str(modtab[2]))
+                        print('INT: ' + str(stats[3]) + '\tMOD: ' + str(modtab[3]))
+                        print('WIS: ' + str(stats[4]) + '\tMOD: ' + str(modtab[4]))
+                        print('CHA: ' + str(stats[5]) + '\tMOD: ' + str(modtab[5]))
+                        print('------\n')
+                    else:
+                        print('\nNo saved stats data.')
                 else:
-                    print('\nNo saved data.')
+                    print('\nNo saved modifier data.')
                 start()
-            if choice == 4:
+            elif choice == 4:
+                print(' \n ')
                 rolldice()
                 start()
-            if choice == 5:
+            elif choice == 5:
+                savestats()
                 return
+            else:
+                print('Invalid input.')
+                start()
 
         titleprn()
 
