@@ -40,8 +40,6 @@ def dnd():
     else:
         print('dnd.dnd not found.')
 
-    choice = 0
-
     def savestats():
         if len(stats) != 0:
             with open('dnd.dnd', 'w') as f:
@@ -83,7 +81,7 @@ def dnd():
                 dice.append(d)
                 print('\nDice', i, "-", d)
             total = sum(dice)
-            print('Your ' + n + ' dice total: ' total)
+            print('Your ' + n + ' dice total: ', total)
         else:
             print("Too many dice. Try up to 10.")
             rolldice()
@@ -261,18 +259,18 @@ def dnd():
             print('5) Exit the program\n')
 
             try:
-                choice = int(input('What would you like to do? '))
+                choice = input('What would you like to do? ')
             except ValueError:
                 print('Invalid input.')
                 start()
 
-            if choice == 1:
+            if choice == '1':
                 print(' \n ')
                 randroll()
-            elif choice == 2:
+            elif choice == '2':
                 (print(' \n '))
                 manuroll()
-            elif choice == 3:
+            elif choice == '3':
                 print(' \n ')
                 if len(modtab) != 0:
                     if len(stats) != 0:
@@ -290,11 +288,11 @@ def dnd():
                 else:
                     print('\nNo saved modifier data.')
                 start()
-            elif choice == 4:
+            elif choice == '4':
                 print(' \n ')
                 rolldice()
                 start()
-            elif choice == 5:
+            elif choice == '5':
                 savestats()
                 return
             else:
