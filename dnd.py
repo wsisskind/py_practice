@@ -72,19 +72,54 @@ def dnd():
 
     def rolldice():
 
+        counter = 1
+        roll = 0
+        di = []
         dice = []
-        print('How many dice?')
-        n = int(input())
-        if n in range(11):
-            for i in range(1, n+1):
-                d = random.randrange(1,7)
-                dice.append(d)
-                print('\nDice', i, "-", d)
-            total = sum(dice)
-            print('Your ' + n + ' dice total: ', total)
-        else:
-            print("Too many dice. Try up to 10.")
-            rolldice()
+
+        yn = 0
+
+        print('\nADVANCED DICE ROLLER\n')
+
+        d = int(input('How many dice are you rolling?\nWe recommend six or fewer. '))
+        while counter < d:
+            dice.append(0)
+            counter = counter+1
+            if counter == d:
+                dice.append(0)
+                break
+
+        if d > 1:
+            while roll < len(dice):
+                dice[int(roll)] = int(input(f'How many sides does Die {roll+1} have? '))
+                #print(dice)
+                roll = roll + 1
+                if roll == len(dice):
+                    break
+        elif d == 1:
+            dice.append(int(input(f'How many sides does your die have? ')))
+            #print(dice)
+
+        for i in dice:
+            if i != 100:
+                di.append(random.randrange(i)+1)
+            else:
+                di.append(random.randrange(i))
+
+        print(f'Your rolls are: {di}.')
+        print(f'The total of your rolls are: {sum(di)}.')
+
+        def donerolling():
+            yn = input('\nRoll new dice? ')
+            if yn in ('y','Y','ye','yes'):
+                rolldice()
+            elif yn in ('n','N','no'):
+                pass
+            else:
+                print('Please type either Y or N.')
+                donerolling()
+
+        donerolling()
 
     def statroll():
 
